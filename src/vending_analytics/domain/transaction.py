@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from vending_analytics.domain.payment import CardPayment
+
 
 @dataclass  # STUDYME okruh 12
 class Transaction:  # STUDYME okruh 1
@@ -9,8 +11,7 @@ class Transaction:  # STUDYME okruh 1
     product_id: str
     product_name: str
     price: int
-    payment_status: str
-    card_provider: str
+    payment: CardPayment
 
     @classmethod  # STUDYME okruh 1
     def from_dict(cls, data: dict) -> "Transaction":  # STUDYME okruh 28
@@ -21,8 +22,7 @@ class Transaction:  # STUDYME okruh 1
             product_id=data["product_id"],
             product_name=data["product_name"],
             price=data["price"],
-            payment_status=data["payment_status"],
-            card_provider=data["card_provider"],
+            payment=CardPayment.from_dict(data),  # STUDYME okruh 2, 28
         )
 
     def to_dict(self) -> dict:  # STUDYME okruh 1, 28
@@ -33,6 +33,6 @@ class Transaction:  # STUDYME okruh 1
             "product_id": self.product_id,
             "product_name": self.product_name,
             "price": self.price,
-            "payment_status": self.payment_status,
-            "card_provider": self.card_provider,
+            "payment_status": self.payment.status,
+            "card_provider": self.payment.provider,
         }

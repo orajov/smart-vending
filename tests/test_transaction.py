@@ -24,5 +24,5 @@ class TestTransaction(unittest.TestCase):
         self.assertEqual(tx.product_id, "P-101")
         self.assertEqual(tx.product_name, "Coca-Cola 0.5L")
         self.assertEqual(tx.price, 35)
-        self.assertEqual(tx.payment_status, "paid")
-        self.assertEqual(tx.card_provider, "Visa")
+        self.assertTrue(tx.payment.is_paid())
+        self.assertEqual(tx.payment.provider, "Visa")

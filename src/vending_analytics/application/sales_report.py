@@ -2,8 +2,8 @@ from vending_analytics.domain.transaction import Transaction
 
 
 def build_sales_summary(transactions: list[Transaction]) -> dict:  # STUDYME okruh 27
-    paid = [t for t in transactions if t.payment_status == "paid"]  # STUDYME okruh 20
-    failed = [t for t in transactions if t.payment_status != "paid"]  # STUDYME okruh 20
+    paid = [t for t in transactions if t.payment.is_paid()]  # STUDYME okruh 20
+    failed = [t for t in transactions if not t.payment.is_paid()]  # STUDYME okruh 20
 
     return {
         "transaction_count": len(transactions),

@@ -20,21 +20,25 @@ Plánované metriky a reporty: [`TODO`](TODO)
 
 ## Co aplikace umí teď
 
-- [x] načíst transakce z JSON souboru (`infrastructure/json_loader.py`)
-- [x] deserializovat záznam na `Transaction` (`domain/transaction.py`)
+- [x] načíst transakce z JSON souboru — včetně lazy iterátoru (`infrastructure/json_loader.py`)
+- [x] deserializovat záznam na `Transaction` s vnořenou platbou `CardPayment` (`domain/transaction.py`, `domain/payment.py`)
+- [x] OOP hierarchie plateb — `Payment` → `CardPayment` s metodou `is_paid()`
 - [x] spočítat základní souhrn prodejů — počet transakcí, úspěšných/neúspěšných plateb, celkové tržby (`application/sales_report.py`)
-- [x] report tržeb podle produktu přes Pandas — funkce existuje, zatím není napojená na CLI (`analytics/product_report.py`)
-- [x] spustit přes CLI s jedním argumentem — cesta k JSON souboru (`__main__.py`)
-- [x] unit testy pro `Transaction.from_dict` a `build_sales_summary` (`tests/`)
+- [x] report tržeb podle produktu přes Pandas (`analytics/product_report.py`)
+- [x] uložit sloupcový graf tržeb podle produktu (`analytics/charts.py`)
+- [x] návrhový vzor Strategy — volitelné reporty přes `ReportStrategy` Protocol (`application/report_protocol.py`, `report_strategies.py`)
+- [x] návrhový vzor Adapter — převod starého JSON formátu (`infrastructure/legacy_adapter.py`)
+- [x] CLI s argumentem `--report summary|products` (`__main__.py`)
+- [x] unit testy pro doménu, aplikační logiku a mockované načítání JSON (`tests/`)
 
 ## Co ještě chybí
 
-- [ ] rozšířené CLI příkazy (`report`, `chart`, import složky)
 - [ ] další metriky — průměr, tržby podle automatu, časové analýzy, platební metody…
-- [ ] OOP hierarchie v `domain/` (`Product`, `Machine`, platby)
-- [ ] návrhové vzory (Strategy, Adapter, Observer)
-- [ ] NumPy a Matplotlib v `analytics/`
-- [ ] mockování a TDD
+- [ ] další doménové třídy — `Product`, `Machine`
+- [ ] návrhový vzor Observer
+- [ ] NumPy v `analytics/`
+- [ ] import celé složky transakcí, samostatný CLI příkaz pro graf
+- [ ] TDD workflow
 
 Kompletní seznam plánovaných analýz je v [`TODO`](TODO).
 
@@ -78,13 +82,13 @@ Soubor obsahuje pole transakcí. Každý záznam reprezentuje jednu transakci z 
 ```text
 JSON soubor
     ↓
-načtení dat (json_loader)
+načtení dat (json_loader / legacy_adapter)
     ↓
-deserializace na Transaction
+deserializace na Transaction + CardPayment
     ↓
-aplikční logika / analýzy
+Strategy reportu (summary / products)
     ↓
-výstup (CLI print / budoucí reporty)
+výstup (CLI print / Pandas tabulka / PNG graf)
 ```
 
 ---
@@ -100,15 +104,20 @@ smart-vending/
 │
 ├── src/
 │   └── vending_analytics/
-│       ├── __main__.py          # CLI vstupní bod
+│       ├── __main__.py              # CLI vstupní bod (--report)
 │       ├── domain/
-│       │   └── transaction.py   # Transaction dataclass
+│       │   ├── transaction.py       # Transaction dataclass
+│       │   └── payment.py           # Payment, CardPayment (dědičnost)
 │       ├── application/
-│       │   └── sales_report.py  # build_sales_summary
+│       │   ├── sales_report.py      # build_sales_summary
+│       │   ├── report_protocol.py   # ReportStrategy Protocol
+│       │   └── report_strategies.py # Strategy pro summary / products
 │       ├── infrastructure/
-│       │   └── json_loader.py   # načítání JSON
+│       │   ├── json_loader.py       # načítání JSON, iter_transactions
+│       │   └── legacy_adapter.py    # Adapter pro starý formát
 │       └── analytics/
-│           └── product_report.py # tržby podle produktu (Pandas)
+│           ├── product_report.py    # tržby podle produktu (Pandas)
+│           └── charts.py            # sloupcový graf (Matplotlib)
 │
 ├── tests/
 ├── pyproject.toml
@@ -127,35 +136,37 @@ Plánované složky, které zatím neexistují: `interfaces/`, `utils/`.
 
 ### `domain/`
 
-Doménové objekty — zatím `Transaction` jako `@dataclass` s `from_dict` / `to_dict`.  
-Plánováno: `Product`, `Machine`, hierarchie plateb, OOP a serializace.
+Doménové objekty — `Transaction` jako `@dataclass` s `from_dict` / `to_dict` a vnořenou platbou.  
+Hierarchie plateb: `Payment` (základní stav) → `CardPayment` (dědičnost, `provider`, `is_paid()`).  
+Plánováno: `Product`, `Machine`, abstraktní třídy.
 
 ### `application/`
 
 Aplikační logika oddělená od I/O — `build_sales_summary()` vrací slovník s metrikami.  
-Plánováno: orchestrace reportů, návrhové vzory (Strategy, Observer).
+Strategy pattern: `ReportStrategy` Protocol a implementace `SalesSummaryStrategy`, `ProductReportStrategy`.  
+Plánováno: Observer pro notifikace o reportech.
 
 ### `infrastructure/`
 
-Načítání dat ze souborů — `load_transactions(path)` čte JSON a vrací `list[Transaction]`.  
-Plánováno: lazy načítání, Adapter pro další formáty.
+Načítání dat ze souborů — `load_transactions(path)` a lazy `iter_transactions(path)` s `yield`.  
+Adapter — `LegacyTransactionAdapter` mapuje starší JSON schéma na aktuální formát.
 
 ### `analytics/`
 
-Agregace a reporty — `build_product_report()` používá Pandas pro tržby podle produktu.  
-Plánováno: NumPy, Matplotlib, časové a platební analýzy.
+Agregace a vizualizace — `build_product_report()` používá Pandas, `save_product_revenue_chart()` Matplotlib.  
+Plánováno: NumPy, časové a platební analýzy.
 
 ### `tests/`
 
-Unit testy (`unittest`) pro doménu a aplikační logiku.  
-Plánováno: mockování I/O, TDD.
+Unit testy (`unittest`) pro doménu, aplikační logiku a mockované I/O (`@patch`, `MagicMock`).  
+Plánováno: TDD workflow.
 
 ---
 
 ## Požadavky a instalace
 
 - Python **3.12+**
-- závislosti: `ruff`, `pandas` (viz [`requirements.txt`](requirements.txt))
+- závislosti: `ruff`, `pandas`, `matplotlib` (viz [`requirements.txt`](requirements.txt))
 
 ```bash
 python3 -m venv .venv
@@ -170,14 +181,29 @@ pip install -r requirements.txt
 Z kořene projektu (s aktivním venv a nainstalovanými závislostmi):
 
 ```bash
+# základní souhrn prodejů (výchozí)
 PYTHONPATH=src python -m vending_analytics data/transactions/VM-001/2026-06-04.json
+
+# report tržeb podle produktu + PNG graf
+PYTHONPATH=src python -m vending_analytics data/transactions/VM-001/2026-06-04.json --report products
 ```
 
-Příklad výstupu:
+Příklad výstupu (`--report summary`):
 
 ```text
 načteno 50 transakcí
 {'transaction_count': 50, 'paid_count': 45, 'failed_count': 5, 'total_revenue': 1575}
+```
+
+Příklad výstupu (`--report products`):
+
+```text
+načteno 50 transakcí
+  product_name  revenue
+Coca-Cola 0.5L      420
+    Pepsi 0.5L      340
+         ...
+graf uložen: product_revenue.png
 ```
 
 ---
@@ -206,15 +232,20 @@ Teoretické okruhy ze [`STUDYME.md`](STUDYME.md) se uplatňují přímo v kódu.
 | Import, balíčková struktura | ✅ | `src/vending_analytics/`, absolutní importy, `__main__.py` |
 | Serializace JSON, dataclass | ✅ | `json_loader.py`, `Transaction.from_dict` / `to_dict` |
 | Unit testy, testovatelný kód | ✅ | `tests/`, čistá `build_sales_summary` bez I/O |
-| CLI, `argparse` | ✅ | `__main__.py` — poziční argument `file` |
+| Mockování I/O | ✅ | `test_json_loader.py` — `@patch`, `MagicMock` |
+| CLI, `argparse` | ✅ | `__main__.py` — `--report summary\|products` |
 | Vrstvená architektura | ✅ | `domain/` · `application/` · `infrastructure/` |
-| List comprehension, generátory | 🟡 | `sales_report.py`, `sum(t.price for t in paid)` |
-| Pandas | 🟡 | `product_report.py` — zatím mimo CLI |
-| Decorator (`@dataclass`, `@classmethod`) | 🟡 | `transaction.py` |
-| OOP, dědičnost, abstraktní třídy | ⬜ | plánováno v `domain/` |
-| Návrhové vzory | ⬜ | plánováno v `application/`, `infrastructure/` |
-| NumPy, Matplotlib | ⬜ | plánováno v `analytics/` |
-| Mock, TDD | ⬜ | plánováno v `tests/` |
+| Dědičnost, polymorfismus | ✅ | `Payment` → `CardPayment`, `is_paid()` |
+| Protocol, Strategy | ✅ | `ReportStrategy`, `SalesSummaryStrategy`, `ProductReportStrategy` |
+| Adapter | ✅ | `LegacyTransactionAdapter` |
+| Generátory, lazy načítání | ✅ | `iter_transactions()` s `yield` |
+| List comprehension | 🟡 | `sales_report.py`, `sum(t.price for t in paid)` |
+| Pandas | ✅ | `product_report.py`, CLI `--report products` |
+| Matplotlib | ✅ | `charts.py`, PNG graf při `--report products` |
+| Decorator (`@dataclass`, `@classmethod`) | 🟡 | `transaction.py`, `payment.py` |
+| NumPy | ⬜ | plánováno v `analytics/` |
+| Observer, ABC | ⬜ | plánováno |
+| TDD | ⬜ | plánováno v `tests/` |
 
 Podrobná tabulka všech 28 okruhů: [`CHECKLIST.md`](CHECKLIST.md).
 

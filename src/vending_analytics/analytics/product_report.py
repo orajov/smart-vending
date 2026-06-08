@@ -4,7 +4,7 @@ from vending_analytics.domain.transaction import Transaction
 
 
 def build_product_report(transactions: list[Transaction]) -> pd.DataFrame:  # STUDYME okruh 17
-    rows = [t.to_dict() for t in transactions if t.payment_status == "paid"]  # STUDYME okruh 28
+    rows = [t.to_dict() for t in transactions if t.payment.is_paid()]  # STUDYME okruh 2, 28
     df = pd.DataFrame(rows)  # STUDYME okruh 17
 
     return (
