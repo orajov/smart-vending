@@ -1,0 +1,31 @@
+Prodej
+- počet transakcí
+- počet úspěšných prodejů
+- počet neúspěšných plateb
+- celkové tržby
+- průměrná hodnota transakce
+- tržby podle automatu
+- tržby podle produktu
+Produkty
+- nejprodávanější produkty
+- nejméně prodávané produkty
+- tržby podle produktu
+- průměrná cena produktu
+- podíl produktu na celkových tržbách
+Čas
+- prodeje podle dne
+- prodeje podle hodiny
+- špičky prodejů
+- slabé časy
+- denní / týdenní / měsíční tržby
+Platby
+- podíl úspěšných a neúspěšných plateb
+- tržby podle platební metody
+- počet plateb podle poskytovatele karty
+- Visa vs Mastercard apod.
+- chybovost podle card provideru
+Automaty
+- výkon každého automatu
+- porovnání automatů
+- automaty s nejvyššími tržbami
+- automaty s častými failed platbami
