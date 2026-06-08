@@ -1,0 +1,502 @@
+[
+  {
+    "transaction_id": "TX-20260604-0001",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T07:12:10",
+    "product_id": "P-101",
+    "product_name": "Coca-Cola 0.5L",
+    "price": 35,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0002",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T07:32:10",
+    "product_id": "P-102",
+    "product_name": "Pepsi 0.5L",
+    "price": 34,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0003",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T07:52:10",
+    "product_id": "P-103",
+    "product_name": "Fanta 0.5L",
+    "price": 33,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0004",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T08:12:10",
+    "product_id": "P-201",
+    "product_name": "Bonaqua 0.5L",
+    "price": 25,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0005",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T08:32:10",
+    "product_id": "P-202",
+    "product_name": "Mattoni 0.5L",
+    "price": 27,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0006",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T08:52:10",
+    "product_id": "P-301",
+    "product_name": "Snickers",
+    "price": 29,
+    "payment_status": "paid",
+    "card_provider": "Maestro"
+  },
+  {
+    "transaction_id": "TX-20260604-0007",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T08:54:10",
+    "product_id": "P-302",
+    "product_name": "Mars",
+    "price": 28,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0008",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T09:14:10",
+    "product_id": "P-303",
+    "product_name": "KitKat",
+    "price": 26,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0009",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T09:34:10",
+    "product_id": "P-401",
+    "product_name": "Lays Salted",
+    "price": 32,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0010",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T09:54:10",
+    "product_id": "P-402",
+    "product_name": "Croissant Chocolate",
+    "price": 31,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0011",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T10:14:10",
+    "product_id": "P-101",
+    "product_name": "Coca-Cola 0.5L",
+    "price": 35,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0012",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T10:34:10",
+    "product_id": "P-102",
+    "product_name": "Pepsi 0.5L",
+    "price": 34,
+    "payment_status": "paid",
+    "card_provider": "Maestro"
+  },
+  {
+    "transaction_id": "TX-20260604-0013",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T10:36:10",
+    "product_id": "P-103",
+    "product_name": "Fanta 0.5L",
+    "price": 33,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0014",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T10:56:10",
+    "product_id": "P-201",
+    "product_name": "Bonaqua 0.5L",
+    "price": 25,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0015",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T11:16:10",
+    "product_id": "P-202",
+    "product_name": "Mattoni 0.5L",
+    "price": 27,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0016",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T11:36:10",
+    "product_id": "P-301",
+    "product_name": "Snickers",
+    "price": 29,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0017",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T11:56:10",
+    "product_id": "P-302",
+    "product_name": "Mars",
+    "price": 28,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0018",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T12:16:10",
+    "product_id": "P-303",
+    "product_name": "KitKat",
+    "price": 26,
+    "payment_status": "paid",
+    "card_provider": "Maestro"
+  },
+  {
+    "transaction_id": "TX-20260604-0019",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T12:18:10",
+    "product_id": "P-401",
+    "product_name": "Lays Salted",
+    "price": 32,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0020",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T12:38:10",
+    "product_id": "P-402",
+    "product_name": "Croissant Chocolate",
+    "price": 31,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0021",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T12:58:10",
+    "product_id": "P-101",
+    "product_name": "Coca-Cola 0.5L",
+    "price": 35,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0022",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T13:18:10",
+    "product_id": "P-102",
+    "product_name": "Pepsi 0.5L",
+    "price": 34,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0023",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T13:38:10",
+    "product_id": "P-103",
+    "product_name": "Fanta 0.5L",
+    "price": 33,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0024",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T13:58:10",
+    "product_id": "P-201",
+    "product_name": "Bonaqua 0.5L",
+    "price": 25,
+    "payment_status": "paid",
+    "card_provider": "Maestro"
+  },
+  {
+    "transaction_id": "TX-20260604-0025",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T14:00:10",
+    "product_id": "P-202",
+    "product_name": "Mattoni 0.5L",
+    "price": 27,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0026",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T14:20:10",
+    "product_id": "P-301",
+    "product_name": "Snickers",
+    "price": 29,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0027",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T14:40:10",
+    "product_id": "P-302",
+    "product_name": "Mars",
+    "price": 28,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0028",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T15:00:10",
+    "product_id": "P-303",
+    "product_name": "KitKat",
+    "price": 26,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0029",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T15:20:10",
+    "product_id": "P-401",
+    "product_name": "Lays Salted",
+    "price": 32,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0030",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T15:40:10",
+    "product_id": "P-402",
+    "product_name": "Croissant Chocolate",
+    "price": 31,
+    "payment_status": "paid",
+    "card_provider": "Maestro"
+  },
+  {
+    "transaction_id": "TX-20260604-0031",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T15:42:10",
+    "product_id": "P-101",
+    "product_name": "Coca-Cola 0.5L",
+    "price": 35,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0032",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T16:02:10",
+    "product_id": "P-102",
+    "product_name": "Pepsi 0.5L",
+    "price": 34,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0033",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T16:22:10",
+    "product_id": "P-103",
+    "product_name": "Fanta 0.5L",
+    "price": 33,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0034",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T16:42:10",
+    "product_id": "P-201",
+    "product_name": "Bonaqua 0.5L",
+    "price": 25,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0035",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T17:02:10",
+    "product_id": "P-202",
+    "product_name": "Mattoni 0.5L",
+    "price": 27,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0036",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T17:22:10",
+    "product_id": "P-301",
+    "product_name": "Snickers",
+    "price": 29,
+    "payment_status": "paid",
+    "card_provider": "Maestro"
+  },
+  {
+    "transaction_id": "TX-20260604-0037",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T17:24:10",
+    "product_id": "P-302",
+    "product_name": "Mars",
+    "price": 28,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0038",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T17:44:10",
+    "product_id": "P-303",
+    "product_name": "KitKat",
+    "price": 26,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0039",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T18:04:10",
+    "product_id": "P-401",
+    "product_name": "Lays Salted",
+    "price": 32,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0040",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T18:24:10",
+    "product_id": "P-402",
+    "product_name": "Croissant Chocolate",
+    "price": 31,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0041",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T18:44:10",
+    "product_id": "P-101",
+    "product_name": "Coca-Cola 0.5L",
+    "price": 35,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0042",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T19:04:10",
+    "product_id": "P-102",
+    "product_name": "Pepsi 0.5L",
+    "price": 34,
+    "payment_status": "paid",
+    "card_provider": "Maestro"
+  },
+  {
+    "transaction_id": "TX-20260604-0043",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T19:06:10",
+    "product_id": "P-103",
+    "product_name": "Fanta 0.5L",
+    "price": 33,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0044",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T19:26:10",
+    "product_id": "P-201",
+    "product_name": "Bonaqua 0.5L",
+    "price": 25,
+    "payment_status": "paid",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0045",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T19:46:10",
+    "product_id": "P-202",
+    "product_name": "Mattoni 0.5L",
+    "price": 27,
+    "payment_status": "paid",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0046",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T20:06:10",
+    "product_id": "P-301",
+    "product_name": "Snickers",
+    "price": 29,
+    "payment_status": "failed",
+    "card_provider": "Mastercard"
+  },
+  {
+    "transaction_id": "TX-20260604-0047",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T20:26:10",
+    "product_id": "P-302",
+    "product_name": "Mars",
+    "price": 28,
+    "payment_status": "failed",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0048",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T20:46:10",
+    "product_id": "P-303",
+    "product_name": "KitKat",
+    "price": 26,
+    "payment_status": "failed",
+    "card_provider": "Maestro"
+  },
+  {
+    "transaction_id": "TX-20260604-0049",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T20:48:10",
+    "product_id": "P-401",
+    "product_name": "Lays Salted",
+    "price": 32,
+    "payment_status": "failed",
+    "card_provider": "Visa"
+  },
+  {
+    "transaction_id": "TX-20260604-0050",
+    "machine_id": "VM-001",
+    "timestamp": "2026-06-04T21:08:10",
+    "product_id": "P-402",
+    "product_name": "Croissant Chocolate",
+    "price": 31,
+    "payment_status": "failed",
+    "card_provider": "Mastercard"
+  }
+]
