@@ -1,12 +1,42 @@
 # Vending Sales Analytics
 
+Analytika prodejů z prodejních automatů — studijní projekt v Pythonu.
+
+Repozitář: [github.com/orajov/smart-vending](https://github.com/orajov/smart-vending)
+
+---
+
 ## Popis projektu
 
-Projekt slouží ke zpracování dat z prodejního automatu.  
-Aplikace přijímá transakční data ve formátu JSON, ukládá je, validuje a následně z nich vytváří přehledy o prodejích.
+Projekt zpracovává transakční data z prodejních automatů ve formátu JSON.  
+Aplikace data načte, deserializuje do doménových objektů a počítá základní přehledy o prodejích.
 
-Cílem projektu je ukázat praktické použití Pythonu na reálném datovém problému.  
-Současně slouží jako hlavní projekt pro procvičení teoretických okruhů ze zkoušky — vše je integrováno přímo v aplikaci, bez samostatných učebních složek.
+Cílem je ukázat praktické použití Pythonu na reálném datovém problému a zároveň procvičit teoretické okruhy ze zkoušky — vše je integrováno přímo v aplikaci, bez samostatných učebních složek.
+
+Podrobný přehled pokrytí teorie: [`STUDYME.md`](STUDYME.md) · [`CHECKLIST.md`](CHECKLIST.md)  
+Plánované metriky a reporty: [`TODO`](TODO)
+
+---
+
+## Co aplikace umí teď
+
+- [x] načíst transakce z JSON souboru (`infrastructure/json_loader.py`)
+- [x] deserializovat záznam na `Transaction` (`domain/transaction.py`)
+- [x] spočítat základní souhrn prodejů — počet transakcí, úspěšných/neúspěšných plateb, celkové tržby (`application/sales_report.py`)
+- [x] report tržeb podle produktu přes Pandas — funkce existuje, zatím není napojená na CLI (`analytics/product_report.py`)
+- [x] spustit přes CLI s jedním argumentem — cesta k JSON souboru (`__main__.py`)
+- [x] unit testy pro `Transaction.from_dict` a `build_sales_summary` (`tests/`)
+
+## Co ještě chybí
+
+- [ ] rozšířené CLI příkazy (`report`, `chart`, import složky)
+- [ ] další metriky — průměr, tržby podle automatu, časové analýzy, platební metody…
+- [ ] OOP hierarchie v `domain/` (`Product`, `Machine`, platby)
+- [ ] návrhové vzory (Strategy, Adapter, Observer)
+- [ ] NumPy a Matplotlib v `analytics/`
+- [ ] mockování a TDD
+
+Kompletní seznam plánovaných analýz je v [`TODO`](TODO).
 
 ---
 
@@ -15,7 +45,7 @@ Současně slouží jako hlavní projekt pro procvičení teoretických okruhů 
 Data přicházejí jako JSON soubory do složky:
 
 ```text
-data/transactions/<kod automatu>/
+data/transactions/<kód automatu>/
 ```
 
 Příklad názvu souboru:
@@ -24,7 +54,7 @@ Příklad názvu souboru:
 2026-06-04.json
 ```
 
-Každý záznam reprezentuje jednu transakci z automatu.
+Soubor obsahuje pole transakcí. Každý záznam reprezentuje jednu transakci z automatu.
 
 ### Příklad transakce
 
@@ -32,11 +62,10 @@ Každý záznam reprezentuje jednu transakci z automatu.
 {
   "transaction_id": "TX-20260604-0001",
   "machine_id": "VM-001",
-  "timestamp": "2026-06-04T14:32:10",
+  "timestamp": "2026-06-04T07:12:10",
   "product_id": "P-101",
   "product_name": "Coca-Cola 0.5L",
   "price": 35,
-  "payment_method": "card",
   "payment_status": "paid",
   "card_provider": "Visa"
 }
@@ -49,29 +78,14 @@ Každý záznam reprezentuje jednu transakci z automatu.
 ```text
 JSON soubor
     ↓
-načtení dat
+načtení dat (json_loader)
     ↓
-validace dat
+deserializace na Transaction
     ↓
-uložení / zpracování
+aplikční logika / analýzy
     ↓
-analýzy a reporty
+výstup (CLI print / budoucí reporty)
 ```
-
----
-
-## Co aplikace analyzuje
-
-Aplikace může počítat například:
-
-- počet transakcí
-- počet úspěšných a neúspěšných plateb
-- celkové tržby a průměrnou hodnotu transakce
-- tržby podle produktu a automatu
-- prodeje podle času (den, hodina, špičky)
-- nejprodávanější produkty
-- podíl karetních poskytovatelů (Visa / Mastercard)
-- výkon a porovnání automatů
 
 ---
 
@@ -86,17 +100,26 @@ smart-vending/
 │
 ├── src/
 │   └── vending_analytics/
+│       ├── __main__.py          # CLI vstupní bod
 │       ├── domain/
+│       │   └── transaction.py   # Transaction dataclass
 │       ├── application/
+│       │   └── sales_report.py  # build_sales_summary
 │       ├── infrastructure/
-│       ├── analytics/
-│       ├── interfaces/
-│       └── utils/
+│       │   └── json_loader.py   # načítání JSON
+│       └── analytics/
+│           └── product_report.py # tržby podle produktu (Pandas)
 │
 ├── tests/
-├── STUDYME.MD
-└── README.MD
+├── pyproject.toml
+├── requirements.txt
+├── CHECKLIST.md
+├── STUDYME.md
+├── TODO
+└── README.md
 ```
+
+Plánované složky, které zatím neexistují: `interfaces/`, `utils/`.
 
 ---
 
@@ -104,67 +127,99 @@ smart-vending/
 
 ### `domain/`
 
-Doménové objekty a pravidla — transakce, produkt, automat, platba.  
-Zde se projeví OOP, dědičnost, abstraktní třídy, kompozice a serializace objektů.
+Doménové objekty — zatím `Transaction` jako `@dataclass` s `from_dict` / `to_dict`.  
+Plánováno: `Product`, `Machine`, hierarchie plateb, OOP a serializace.
 
 ### `application/`
 
-Aplikační logika — import transakcí, validace, tvorba reportů, orchestrace analýz.  
-Zde se projeví návrhové vzory (Strategy pro typy reportů, Observer pro logování) a testovatelný kód.
+Aplikační logika oddělená od I/O — `build_sales_summary()` vrací slovník s metrikami.  
+Plánováno: orchestrace reportů, návrhové vzory (Strategy, Observer).
 
 ### `infrastructure/`
 
-Načítání a ukládání dat, práce se soubory, JSON.  
-Zde se projeví serializace, Adapter pro různé formáty vstupu a oddělení vrstev architektury.
+Načítání dat ze souborů — `load_transactions(path)` čte JSON a vrací `list[Transaction]`.  
+Plánováno: lazy načítání, Adapter pro další formáty.
 
 ### `analytics/`
 
-Výpočty a agregace — Pandas, NumPy, Matplotlib.  
-Reporty podle produktů, času, plateb a automatů.
-
-### `interfaces/`
-
-Ovládání aplikace — CLI (`argparse`) a případně jednoduché GUI.
-
-### `utils/`
-
-Společné pomocné funkce sdílené napříč vrstvami.
+Agregace a reporty — `build_product_report()` používá Pandas pro tržby podle produktu.  
+Plánováno: NumPy, Matplotlib, časové a platební analýzy.
 
 ### `tests/`
 
-Unit testy, mocking a TDD pro parser, validaci, reporty a doménovou logiku.
+Unit testy (`unittest`) pro doménu a aplikační logiku.  
+Plánováno: mockování I/O, TDD.
+
+---
+
+## Požadavky a instalace
+
+- Python **3.12+**
+- závislosti: `ruff`, `pandas` (viz [`requirements.txt`](requirements.txt))
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+---
+
+## Spuštění
+
+Z kořene projektu (s aktivním venv a nainstalovanými závislostmi):
+
+```bash
+PYTHONPATH=src python -m vending_analytics data/transactions/VM-001/2026-06-04.json
+```
+
+Příklad výstupu:
+
+```text
+načteno 50 transakcí
+{'transaction_count': 50, 'paid_count': 45, 'failed_count': 5, 'total_revenue': 1575}
+```
+
+---
+
+## Testy
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
+Lint a formátování (Ruff):
+
+```bash
+ruff check src tests
+ruff format src tests
+```
 
 ---
 
 ## Teorie v praxi
 
-Teoretické okruhy ze `STUDYME.MD` nejsou v samostatných ukázkách — každý se uplatní přímo v kódu projektu:
+Teoretické okruhy ze [`STUDYME.md`](STUDYME.md) se uplatňují přímo v kódu. Aktuální stav pokrytí:
 
-| Okruh | Kde v projektu |
-|---|---|
-| OOP, dědičnost, abstraktní třídy | `domain/` — `Transaction`, `Product`, `Machine`, platby |
-| Kompozice, protokoly, duck typing | `application/` — rozhraní reportů a generátorů |
-| Návrhové vzory (Strategy, Adapter, Observer, Decorator) | `application/`, `infrastructure/` |
-| NumPy, Pandas, Matplotlib | `analytics/` |
-| Serializace JSON | `domain/`, `infrastructure/` |
-| Unit testy, mock, TDD | `tests/` |
-| CLI, argparse | `interfaces/` |
-| Vrstvená architektura | celá struktura `src/vending_analytics/` |
-| Generátory, iterátory | `infrastructure/` — lazy načítání transakcí |
+| Okruh | Stav | Kde v projektu |
+|---|---|---|
+| Import, balíčková struktura | ✅ | `src/vending_analytics/`, absolutní importy, `__main__.py` |
+| Serializace JSON, dataclass | ✅ | `json_loader.py`, `Transaction.from_dict` / `to_dict` |
+| Unit testy, testovatelný kód | ✅ | `tests/`, čistá `build_sales_summary` bez I/O |
+| CLI, `argparse` | ✅ | `__main__.py` — poziční argument `file` |
+| Vrstvená architektura | ✅ | `domain/` · `application/` · `infrastructure/` |
+| List comprehension, generátory | 🟡 | `sales_report.py`, `sum(t.price for t in paid)` |
+| Pandas | 🟡 | `product_report.py` — zatím mimo CLI |
+| Decorator (`@dataclass`, `@classmethod`) | 🟡 | `transaction.py` |
+| OOP, dědičnost, abstraktní třídy | ⬜ | plánováno v `domain/` |
+| Návrhové vzory | ⬜ | plánováno v `application/`, `infrastructure/` |
+| NumPy, Matplotlib | ⬜ | plánováno v `analytics/` |
+| Mock, TDD | ⬜ | plánováno v `tests/` |
 
----
-
-## Příklad použití
-
-```bash
-python -m vending_analytics import data/transactions/VM-001/2026-06-04.json
-python -m vending_analytics report daily
-python -m vending_analytics report products
-python -m vending_analytics chart revenue
-```
+Podrobná tabulka všech 28 okruhů: [`CHECKLIST.md`](CHECKLIST.md).
 
 ---
 
 ## Účel projektu
 
-Jedna aplikace, která řeší reálný problém (analytika prodejů automatu) a zároveň pokrývá praktické i teoretické téma kurzu: OOP, návrhové vzory, práce s daty, testování, serializace a architektura programu.
+Jedna aplikace, která řeší reálný problém (analytika prodejů automatu) a postupně pokrývá praktické i teoretické téma kurzu: OOP, návrhové vzory, práce s daty, testování, serializace a architektura programu.
