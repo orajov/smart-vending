@@ -1,0 +1,18 @@
+{
+  "python.defaultInterpreterPath": "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.extraPaths": ["${workspaceFolder}/src"],
+  "ruff.enable": true,
+  "ruff.lint.enable": true,
+  "ruff.path": ["/Library/Frameworks/Python.framework/Versions/3.14/bin/ruff"],
+  "ruff.configuration": "${workspaceFolder}/pyproject.toml",
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  }
+}
